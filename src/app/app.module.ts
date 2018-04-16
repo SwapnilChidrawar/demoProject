@@ -13,15 +13,14 @@ import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.compo
 
 import { AuthGuard } from './guards/auth.guard';
 
-
-
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
     AuthComponent,
-    BreadcrumbsComponent,
+    BreadcrumbsComponent
 
   ],
   imports: [
@@ -29,7 +28,7 @@ import { AuthGuard } from './guards/auth.guard';
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
-
+    FormsModule
 
 
 

@@ -1,0 +1,80 @@
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <app-card>
+                <div class="label-main">
+                    <label class="label label-lg label-primary" *ngFor="let filterKey of filterKeys">
+                  {{filterKey}}
+                </label>
+                </div>
+                <ngx-datatable class="data-table table-responsive" [rows]="rows" [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="getRowHeight" [columnMode]="'force'">
+                    <ngx-datatable-column *ngFor="let col of columns; let colIndex = index" [name]="col.name">
+
+
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            {{col.name}}
+
+                            <div ngbDropdown>
+                                <a ngbDropdownToggle class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="icofont icofont-ui-settings"></i>
+                                </a>
+                                <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+
+                                    <div class="form-radio">
+                                        <form (ngSubmit)="onSubmit(searchData,colIndex)" #searchData="ngForm">
+                                            <div *ngIf="col.dataType === 'number'">
+                                                <div class="radio" *ngFor="let numberFilter of numberFilters; let filterIndex = index">
+                                                    <label>
+                                            <input #radio1="ngModel" type="radio" name="radio" value="{{numberFilter.key}}" ngModel>
+      
+                                            <span 
+                                              *ngIf="radio1.value !== numberFilter.key"> {{numberFilter.value}}
+                                            </span>
+                                            <input 
+                                                style="border: 1px solid"
+                                                *ngIf="radio1.value === numberFilter.key"
+                                                style="border: 1px solid;"
+                                                class="dropdown-item"
+                                                type="text" 
+                                                name="inputFieldValue" 
+                                                ngModel
+                                            >
+                                          </label>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="col.dataType === 'string'">
+                                                <div class="radio" *ngFor="let filter of filters; let filterIndex = index">
+                                                    <label>
+                                                    <input #radio1="ngModel" type="radio" name="radio" value="{{filter.key}}" ngModel>
+      
+                                            <span 
+                                              *ngIf="radio1.value !== filter.key"> {{filter.value}}
+                                            </span>
+                                            <input 
+                                                style="border: 1px solid"
+                                                *ngIf="radio1.value === filter.key"
+                                                style="border: 1px solid;"
+                                                class="dropdown-item"
+                                                type="text" 
+                                                name="inputFieldValue"  
+                                                ngModel
+                                            >
+                                          </label>
+                                                </div>
+                                                <button type="submit" class="btn btn-grd-success">Success Button</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </ng-template>
+
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </app-card>
+        </div>
+    </div>
+</div>

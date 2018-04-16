@@ -30,7 +30,10 @@ const routes: Routes = [
         path: 'es',
         loadChildren: './modules/es/es.module#EsModule'
       },
-
+      {
+        path: 'ngtable',
+        loadChildren: './modules/ngtable/ngtable.module#NgtableModule'
+      },
       {
         path: 'navigation',
         loadChildren: './theme/navigation/navigation.module#NavigationModule'
