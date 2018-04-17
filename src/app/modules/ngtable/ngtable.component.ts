@@ -15,6 +15,8 @@ export class NgtableComponent implements OnInit {
     editing = {};
     temp = [];
 
+    queryString = '';
+    queryStringArray = [];
 
     columns = [
     { name: 'id', dataType: 'number' },
@@ -51,7 +53,7 @@ export class NgtableComponent implements OnInit {
   constructor(private ngTableService: NgtableService,
               private config: NgbDropdownConfig) {
                 config.placement = 'bottom-left';
-                config.autoClose = false;
+                config.autoClose = 'outside';
                }
 
   ngOnInit() {
@@ -76,8 +78,23 @@ export class NgtableComponent implements OnInit {
     const searchKey = formData.controls.inputFieldValue.value;
     const filterKey = formData.controls.radio.value;
     this.updateFilter(searchKey, colIndex, filterKey);
+    this.buildSearchQuery(searchKey, colIndex, filterKey);
+
   }
 
+  buildSearchQuery(searchKey, colIndex, filterKey) {
+    for (const query of this.queryStringArray) {
+      if (query.indexOf(this.columns[colIndex].name) !== -1) {
+        this.queryStringArray.splice(this.queryStringArray.indexOf(query), 1);
+      }
+    }
+    if (searchKey !== '') {
+      this.queryStringArray.push( this.columns[colIndex].name  + '=' + filterKey + '%' + searchKey);
+    }
+
+    this.queryString = '?' + this.queryStringArray.join('&');
+    console.log(this.queryString);
+  }
   updateFilter(searchKey, colIndex, filterKey) {
 
       // Check if the operation is for string data type
